@@ -1,0 +1,15 @@
+# Netlify configuration
+# Only deploy minimal files needed for Identity service
+
+[build]
+  command = "echo 'Skipping full build - only copying redirects' && mkdir -p dist && cp public/_redirects dist/ || true"
+  publish = "dist"
+
+# Disable branch deploys
+[context.branch-deploy]
+  command = "echo 'Branch deploys disabled'"
+
+# Only build on main branch
+[context.production]
+  command = "mkdir -p dist && cp public/_redirects dist/ || true"
+  publish = "dist"
