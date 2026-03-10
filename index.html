@@ -19,13 +19,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <!-- Netlify Identity Widget (for invite tokens) -->
-    <script>
-      window.netlifyIdentity = {
-        gotrue: {
-          APIUrl: 'https://resilient-bublanina-cfacf2.netlify.app/.netlify/identity'
-        }
-      };
-    </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
@@ -35,6 +28,11 @@
     <!-- Handle Netlify Identity tokens and redirects -->
     <script>
       if (window.netlifyIdentity) {
+        // Initialize with correct API URL
+        window.netlifyIdentity.init({
+          APIUrl: 'https://resilient-bublanina-cfacf2.netlify.app/.netlify/identity'
+        });
+
         window.netlifyIdentity.on("init", user => {
           // Check if there's an invite token in URL
           if (window.location.hash.includes('invite_token') ||
