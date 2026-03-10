@@ -17,9 +17,32 @@
 
     <!-- Preconnect for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Netlify Identity Widget (for invite tokens) -->
+    <script>
+      window.netlifyIdentity = {
+        gotrue: {
+          APIUrl: 'https://resilient-bublanina-cfacf2.netlify.app/.netlify/identity'
+        }
+      };
+    </script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Handle Netlify Identity tokens and redirects -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/photos/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>

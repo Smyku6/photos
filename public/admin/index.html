@@ -5,11 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager - Nature Portfolio</title>
-  <!-- Netlify Identity Widget -->
+  <!-- Netlify Identity Widget with Site ID -->
+  <script>
+    // Set Netlify site URL before widget loads
+    window.netlifyIdentity = {
+      gotrue: {
+        APIUrl: 'https://resilient-bublanina-cfacf2.netlify.app/.netlify/identity'
+      }
+    };
+  </script>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <!-- Decap CMS will load here -->
   <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+
+  <!-- Initialize Netlify Identity -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/photos/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
