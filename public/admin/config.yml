@@ -1,0 +1,125 @@
+# Decap CMS Configuration
+# Documentation: https://decapcms.org/docs/configuration-options/
+
+# Backend Configuration
+backend:
+  name: github
+  repo: Smyku6/photos  # Your GitHub username/repo
+  branch: main
+  # For GitHub OAuth (we'll configure this in next step)
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Media/Upload Configuration
+media_folder: "public/uploads"    # Temporary location for uploaded images
+public_folder: "/uploads"         # URL path for uploads
+
+# Editorial Workflow (Draft → Review → Publish)
+publish_mode: editorial_workflow
+
+# Localization
+locale: 'en'
+
+# Collections Configuration
+collections:
+  # Photos Collection
+  - name: "photos"
+    label: "Photos"
+    label_singular: "Photo"
+    folder: "src/data/photos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "/"
+
+    # Form fields for adding a photo
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "e.g. 'Peregrine Falcon in Flight'"
+        required: true
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Birds", value: "birds" }
+          - { label: "Mammals", value: "mammals" }
+          - { label: "Landscapes", value: "landscapes" }
+          - { label: "Plants", value: "plants" }
+          - { label: "Insects", value: "insects" }
+          - { label: "Reptiles & Amphibians", value: "reptiles" }
+        default: "birds"
+        required: true
+
+      - label: "Photo"
+        name: "image"
+        widget: "image"
+        hint: "Upload JPG or PNG (max 20MB). Will be optimized automatically."
+        required: true
+        media_library:
+          config:
+            max_file_size: 20971520  # 20MB in bytes
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Optional: equipment, conditions, interesting facts"
+        required: false
+
+      - label: "Capture Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+        required: true
+        default: ""
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        hint: "Show in featured section on homepage"
+        default: false
+        required: false
+
+      - label: "Location"
+        name: "location"
+        widget: "string"
+        hint: "e.g. 'Tatra Mountains, Poland'"
+        required: false
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        hint: "Add tags for better searchability"
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
+
+      - label: "Camera Settings"
+        name: "camera"
+        widget: "object"
+        collapsed: true
+        required: false
+        fields:
+          - { label: "Camera", name: "body", widget: "string", required: false }
+          - { label: "Lens", name: "lens", widget: "string", required: false }
+          - { label: "ISO", name: "iso", widget: "string", required: false }
+          - { label: "Aperture", name: "aperture", widget: "string", required: false }
+          - { label: "Shutter Speed", name: "shutter", widget: "string", required: false }
+          - { label: "Focal Length", name: "focal", widget: "string", required: false }
+
+  # About Page (optional)
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About"
+        name: "about"
+        file: "src/data/about.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Bio", name: "body", widget: "markdown" }
+          - { label: "Profile Photo", name: "photo", widget: "image", required: false }
+          - { label: "Email", name: "email", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
