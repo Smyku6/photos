@@ -1,3 +1,3 @@
 # Redirect from Netlify to GitHub Pages
-/admin/*  https://smyku6.github.io/photos/admin/:splat  200
-/*        https://smyku6.github.io/photos/:splat        200
+/admin/*  https://smyku6.github.io/photos/admin/:splat  301!
+/*        https://smyku6.github.io/photos/:splat        301!
