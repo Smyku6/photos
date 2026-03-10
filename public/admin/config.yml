@@ -7,12 +7,8 @@ logo_url: https://smyku6.github.io/photos/vite.svg
 
 # Backend Configuration
 backend:
-  name: github
-  repo: Smyku6/photos  # Your GitHub username/repo
+  name: git-gateway
   branch: main
-  # For GitHub OAuth (we'll configure this in next step)
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
 
 # Media/Upload Configuration
 media_folder: "public/uploads"    # Temporary location for uploaded images
