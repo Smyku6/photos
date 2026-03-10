@@ -5,6 +5,9 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Netlify Identity configuration -->
+    <meta name="netlify-identity-url" content="https://resilient-bublanina-cfacf2.netlify.app" />
+
     <!-- SEO -->
     <title>Nature Photography Portfolio</title>
     <meta name="description" content="Nature photography portfolio. Birds, mammals and landscapes from Poland.">
@@ -28,11 +31,6 @@
     <!-- Handle Netlify Identity tokens and redirects -->
     <script>
       if (window.netlifyIdentity) {
-        // Initialize with correct API URL
-        window.netlifyIdentity.init({
-          APIUrl: 'https://resilient-bublanina-cfacf2.netlify.app/.netlify/identity'
-        });
-
         window.netlifyIdentity.on("init", user => {
           // Check if there's an invite token in URL
           if (window.location.hash.includes('invite_token') ||
