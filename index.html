@@ -5,9 +5,6 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Netlify Identity configuration -->
-    <meta name="netlify-identity-url" content="https://resilient-bublanina-cfacf2.netlify.app" />
-
     <!-- SEO -->
     <title>Nature Photography Portfolio</title>
     <meta name="description" content="Nature photography portfolio. Birds, mammals and landscapes from Poland.">
@@ -21,28 +18,25 @@
     <!-- Preconnect for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <!-- Netlify Identity Widget (for invite tokens) -->
-    <script
-      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-      data-instance-url="https://resilient-bublanina-cfacf2.netlify.app">
+    <!-- Configure Netlify Identity BEFORE loading widget -->
+    <script>
+      // MUST be set before widget loads
+      window.netlifyIdentityInstanceUrl = 'https://resilient-bublanina-cfacf2.netlify.app';
     </script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 
-    <!-- Handle Netlify Identity tokens and redirects -->
+    <!-- Handle invite tokens -->
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
-          // Check if there's an invite token in URL
           if (window.location.hash.includes('invite_token') ||
-              window.location.hash.includes('confirmation_token') ||
-              window.location.hash.includes('recovery_token')) {
-            // Force open the modal to handle the token
+              window.location.hash.includes('confirmation_token')) {
             window.netlifyIdentity.open();
           }
-
           if (!user) {
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/photos/admin/";
